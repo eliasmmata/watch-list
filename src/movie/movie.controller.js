@@ -27,9 +27,9 @@ MovieController.get('/:id', async (req, res, next) => {
 
 MovieController.post('/', upload.single('image'), async (req, res, next) => {
     try {
-        const { title, synopsis, watched, platform } = req.body;
+        const { title, director, year, watched, platform } = req.body;
 
-        const created = await MovieService.create({ title, synopsis, watched, platform }, req.file);
+        const created = await MovieService.create({ title, director, year, watched, platform }, req.file);
 
         res.status(201).json(created);
 
@@ -40,10 +40,10 @@ MovieController.post('/', upload.single('image'), async (req, res, next) => {
 
 MovieController.put('/:id', async (req, res, next) => {
     try {
-        const { title, synopsis, watched, platform } = req.body;
+        const { title, director, year, watched, platform } = req.body;
         const { id } = req.params;
 
-        const updated = await MovieService.replace(id, { title, synopsis, watched, platform });
+        const updated = await MovieService.replace(id, { title, director, year, watched, platform });
 
         res.json(updated);
 

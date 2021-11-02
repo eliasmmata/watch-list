@@ -22,6 +22,13 @@ class MovieService {
         throw new StatusError(404, `Movie with id <${id}> was not found`);
     }
 
+    static async create(movie,file) {
+        if(file) {
+            return Movie.create({...movie, image: file.path})
+        }
+        return Movie.create(movie);
+    }
+
     static async replace(id, movie) {
         const updated = await Movie.findByIdAndUpdate(id, movie);
 

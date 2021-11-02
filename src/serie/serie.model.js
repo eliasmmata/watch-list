@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 
 const serie = new Schema({
     title: { type: String },
+    platform: {type: String},
     synopsis: { type: String },
     watched: {type: Boolean},
     image: {type: String}

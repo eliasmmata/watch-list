@@ -43,8 +43,6 @@ app.use('/customers', secured, CustomerController);
 
 app.use('/admin', AdminController);
 
-/* app.use('/' , logging); */
-
 app.get('*', function(req, res) {
     res.setHeader('Content-Type', 'text/html')
     console.log('Error 404: route not found')

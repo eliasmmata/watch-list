@@ -27,9 +27,9 @@ SerieController.get('/:id', async (req, res, next) => {
 
 SerieController.post('/', upload.single('image'), async (req, res, next) => {
     try {
-        const {title, synopsis, watched} = req.body;
+        const {title, platform, synopsis, watched} = req.body;
 
-        const created = await SerieService.create({ title, synopsis, watched }, req.file);
+        const created = await SerieService.create({ title, platform, synopsis, watched }, req.file);
 
         res.status(201).json(created);
     } catch (error) {
@@ -39,10 +39,10 @@ SerieController.post('/', upload.single('image'), async (req, res, next) => {
 
 SerieController.put('/:id', async (req, res, next) => {
     try {
-        const {title, synopsis, watched} = req.body;
+        const {title, platform, synopsis, watched} = req.body;
         const { id } = req.params;
 
-        const updated = await SerieService.replace(id, {title, synopsis, watched});
+        const updated = await SerieService.replace(id, {title, platform, synopsis, watched});
 
         res.json(updated);
     } catch (error) {

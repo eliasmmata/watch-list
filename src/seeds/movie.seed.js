@@ -11,19 +11,22 @@ require('dotenv').config()
 const movies = [
   {
       title: 'Title Movie',
-      synopsis: 'what movie is about',
+      director: 'Director 1',
+      year: 2000,
       platform: 'HBO',
       watched: false
   },
   {
       title: 'Movie two',
-      synopsis: 'what movie is about',
+      director: 'Director 2',
+      year: 2001,
       platform: 'Netflix',
       watched: false
   },
   {
       title: 'Movie three',
-      synopsis: 'what movie is about',
+      director: 'Director 3',
+      year: 2002,
       platform: 'HBO',
       watched: false
   }
