@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 const AdminController = require('./admin/admin.controller');
 const SerieController = require('./serie/serie.controller');
 const CustomerController = require('./customer/customer.controller');
+const MovieController = require('./movie/movie.controller');
 
 const logging = require('./_shared/middleware/loggin.middleware');
 const secured = require('./_shared/middleware/secured.middleware');
@@ -33,6 +34,8 @@ app.use(logging);
 
 //Set the views folder
 app.use(express.static(PATH.join(__dirname, '/public')));
+
+app.use('/movies', MovieController);
 
 app.use('/series', SerieController);
 

@@ -62,7 +62,7 @@ SerieController.delete('/:id', async (req, res, next) => {
     }
 })
 
-function getNextId() {
+/* function getNextId() {
     return series.reduce((current, greatest, ids) => greatest = greatest > current.id ? greatest: current.id , 0)
 }
 
@@ -73,6 +73,6 @@ function safeParseInt(stringInteger) {
         return null;
     }
 }
-
+ */
 
 module.exports = SerieController;

@@ -1,5 +1,5 @@
-/* const CustomerResolver = require("../customer/customer.resolver");
- */const StatusError = require("../_shared/error/status.error");
+/* const CustomerResolver = require("../customer/customer.resolver");*/
+const StatusError = require("../_shared/error/status.error");
 const Serie = require("./serie.model");
 
 class SerieService {
