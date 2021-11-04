@@ -14,10 +14,13 @@ const app = express();
 
 const PATH = require('path');
 
-require('dotenv').config()
+app.use(express.static(__dirname + '/public'));
 
+
+require('dotenv').config();
 
 const PORT = defaults(process.env.PORT, 3000);
+
 
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
