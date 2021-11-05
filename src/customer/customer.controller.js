@@ -4,8 +4,7 @@ const CustomerController = express.Router();
 
 CustomerController.get('/', async (req, res, next) => {
     try {
-        console.log(req.user)
-        const customers = await CustomerService.find();
+        const customers = await CustomerService.find().populate('movies');
         res.json(customers);
     } catch (error) {
         next(error)
@@ -36,6 +35,18 @@ CustomerController.post('/', async (req, res, next) => {
     }
 })
 
+CustomerController.delete('/:id', async (req, res, next) => {
+    try {
+        const { id } = req.params;
+
+        await CustomerService.delete(id);
+
+        res.status(204).send();
+    } catch (error) {
+        next(error);
+    }
+})
+
 CustomerController.put('/:id', async (req, res, next) => {
     try {
         const { name } = req.body;
@@ -49,16 +60,19 @@ CustomerController.put('/:id', async (req, res, next) => {
     }
 })
 
-CustomerController.delete('/:id', async (req, res, next) => {
+
+// PRUEBA
+CustomerController.patch('/newmovie/:id', async (req, res, next) => {
     try {
-        const { id } = req.params;
+        const { id } = req.params
+        const idMovie = req.body.idMovie
+        const updated = await CustomerService.addMovie(id, { $push: { movies: idMovie } })
+        res.json(updated);
 
-        await CustomerService.delete(id);
-
-        res.status(204).send();
     } catch (error) {
-        next(error);
+        return next(error)
     }
+
 })
 
 module.exports = CustomerController;

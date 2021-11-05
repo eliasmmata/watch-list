@@ -21,6 +21,16 @@ class CustomerService {
         return Customer.create(customer);
     }
 
+    static async delete(id) {
+        const customer = await Customer.findById(id);
+
+        if (customer) {
+            return Customer.findByIdAndRemove(id);
+        }
+
+        throw new StatusError(404, `Customer with id <${id}> was not found`);
+    }
+
     static async replace(id, customer) {
         const updated = await Customer.findByIdAndUpdate(id, customer);
 
@@ -31,21 +41,17 @@ class CustomerService {
         throw new StatusError(404, `Customer with id <${id}> was not found`);
     }
 
-    static async delete(id) {
-        const customer = await Customer.findById(id);
+    // PRUEBA
+    static async addMovie(id, customer) {
+        const updated = await Customer.findByIdAndUpdate(id, customer);
 
-       /*  const pets = await PetResolver.findByOwner(id);
-
-        if (pets.length) {
-            throw new StatusError(400, `Customer has linked pets, remove them first before deleting owner`);
-        }
- */
-        if (customer) {
-            return Customer.findByIdAndRemove(id);
+        if (updated) {
+            return updated;
         }
 
         throw new StatusError(404, `Customer with id <${id}> was not found`);
     }
+
 }
 
 module.exports = CustomerService;

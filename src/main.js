@@ -12,12 +12,12 @@ const { defaults } = require('./_shared/utils');
 const cloudinary = require('cloudinary').v2;
 const app = express();
 
-const PATH = require('path');
-
-app.use(express.static(__dirname + '/public'));
-
+/* router = express.Router();
+app.use(router); */
 
 require('dotenv').config();
+
+const PATH = require('path');
 
 const PORT = defaults(process.env.PORT, 3000);
 
@@ -28,23 +28,30 @@ cloudinary.config({
     api_secret: process.env.API_SECRET
 });
 
+app.use(express.static(__dirname + '/public'));
 
 // IMPORTANTE PONERLO ENCIMA DE LAS RUTAS PARA QUE PUEDA CONVERTIR A JSON
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-app.use(logging);
 
 //Set the views folder
 app.use(express.static(PATH.join(__dirname, '/public')));
+
 
 app.use('/movies', MovieController);
 
 app.use('/series', SerieController);
 
-app.use('/customers', secured, CustomerController);
+app.use('/customers', CustomerController);
 
-app.use('/admin', AdminController);
+app.use('/admin',  secured, AdminController);
+
+app.use(logging);
+
+app.get('/', function(req, res) {
+    res.sendFile(PATH.join(__dirname+'/views/index.html'))
+});
 
 app.get('*', function(req, res) {
     res.setHeader('Content-Type', 'text/html')
@@ -54,6 +61,8 @@ app.get('*', function(req, res) {
         <img style="width:100%" src="https://i.stack.imgur.com/6M513.png">`
         )
 });
+
+
 
 // BASE ERROR HANDLER (Error Mejorado)
 app.use((error, req, res, next) => {
