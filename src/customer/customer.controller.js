@@ -4,7 +4,7 @@ const CustomerController = express.Router();
 
 CustomerController.get('/', async (req, res, next) => {
     try {
-        const customers = await CustomerService.find().populate('movies');
+        const customers = await CustomerService.find().populate('movies').populate('series');
         res.json(customers);
     } catch (error) {
         next(error)
@@ -59,9 +59,6 @@ CustomerController.put('/:id', async (req, res, next) => {
         next(error);
     }
 })
-
-
-// PRUEBA
 CustomerController.patch('/newmovie/:id', async (req, res, next) => {
     try {
         const { id } = req.params
@@ -72,7 +69,18 @@ CustomerController.patch('/newmovie/:id', async (req, res, next) => {
     } catch (error) {
         return next(error)
     }
+})
+// PRUEBA
+CustomerController.patch('/newserie/:id', async (req, res, next) => {
+    try {
+        const { id } = req.params
+        const idSerie = req.body.idSerie
+        const updated = await CustomerService.addMovie(id, { $push: { series: idSerie } })
+        res.json(updated);
 
+    } catch (error) {
+        return next(error)
+    }
 })
 
 module.exports = CustomerController;

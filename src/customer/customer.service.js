@@ -40,9 +40,18 @@ class CustomerService {
 
         throw new StatusError(404, `Customer with id <${id}> was not found`);
     }
+    static async addMovie(id, customer) {
+        const updated = await Customer.findByIdAndUpdate(id, customer);
+
+        if (updated) {
+            return updated;
+        }
+
+        throw new StatusError(404, `Customer with id <${id}> was not found`);
+    }
 
     // PRUEBA
-    static async addMovie(id, customer) {
+    static async addSerie(id, customer) {
         const updated = await Customer.findByIdAndUpdate(id, customer);
 
         if (updated) {
